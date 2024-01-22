@@ -1,4 +1,5 @@
 import { Octokit } from "octokit";
+
 import moment from "moment";
 import { config } from "dotenv";
 import { AuthenticatedUserAlias } from "./types";
@@ -32,6 +33,7 @@ async function pullRequests(options: PullRequestOptions) {
             order: 'desc',
             page: page,
             per_page: options.perPage ?? 70
+
         })
 
         if (response.data.items.length === 0 || page === options.maxPages) break
@@ -46,11 +48,38 @@ async function pullRequests(options: PullRequestOptions) {
 }
 
 
+async function diary(){
+    const today = moment().startOf('day');
+    const tomorrow = moment(today).add(1, 'days');
+
+    const prs = await octokit.rest.pulls.list({
+        owner: 'Radweb',  // replace with your GitHub username
+        repo: 'InventoryBase',
+        state: 'all',
+        sort: 'updated',
+        direction: 'desc',
+        page: 1,
+        per_page: 10,
+    })
+
+    console.log(prs.data.length)
+
+    for (const pr of prs.data) {
+        const updatedAt = moment(pr.updated_at);
+        console.log(updatedAt.isSameOrAfter(today))
+        if (updatedAt.isSameOrAfter(today) && updatedAt.isBefore(tomorrow) && pr.user?.name === user.data.name) {
+            console.log(`PR updated at ${updatedAt.format('LLL')}: ${pr.title}`);
+        }
+    }
+}
+
 async function main () {
 
     user = await octokit.rest.users.getAuthenticated()
     
-    pullRequests({q: `is:pr state:open author:${user.data.login} repo:Radweb/InventoryBase`, maxPages: 1, perPage: 3});
+    await pullRequests({q: `is:pr state:open author:${user.data.login} repo:Radweb/InventoryBase`, maxPages: 1, perPage: 3});
+
+    await diary()
 
 }
 
