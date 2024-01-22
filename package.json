@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@octokit/types": "^12.4.0",
     "dotenv": "^16.3.2",
     "moment": "^2.30.1",
     "octokit": "^3.1.2",
