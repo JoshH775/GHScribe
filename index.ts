@@ -4,6 +4,9 @@ import moment from "moment";
 import { config } from "dotenv";
 import { AuthenticatedUserAlias } from "./types";
 
+const today = moment().startOf('day');
+
+
 
 config()
 
@@ -59,16 +62,16 @@ async function diary(){
         sort: 'updated',
         direction: 'desc',
         page: 1,
-        per_page: 10,
     })
 
     console.log(prs.data.length)
+    const thing = prs.data[0]
 
     for (const pr of prs.data) {
         const updatedAt = moment(pr.updated_at);
-        console.log(updatedAt.isSameOrAfter(today))
-        if (updatedAt.isSameOrAfter(today) && updatedAt.isBefore(tomorrow) && pr.user?.name === user.data.name) {
-            console.log(`PR updated at ${updatedAt.format('LLL')}: ${pr.title}`);
+
+        if (updatedAt.isSameOrAfter(today) && updatedAt.isBefore(tomorrow) && pr.user?.login === user.data.login) {
+            console.log(`${deriveVerb(pr)} ${pr.title}`)
         }
     }
 }
@@ -77,11 +80,28 @@ async function main () {
 
     user = await octokit.rest.users.getAuthenticated()
     
-    await pullRequests({q: `is:pr state:open author:${user.data.login} repo:Radweb/InventoryBase`, maxPages: 1, perPage: 3});
+    // await pullRequests({q: `is:pr state:open author:${user.data.login} repo:Radweb/InventoryBase`, maxPages: 1, perPage: 3});
 
     await diary()
 
 }
 
+function deriveVerb(pr: PullRequestSimple): "Created" | "Worked on" | "Closed" | "Merged" | undefined {
+    const createdAt = moment(pr.created_at);
+    const updatedAt = moment(pr.updated_at);
+    const closedAt = moment(pr.closed_at);
+    const mergedAt = moment(pr.merged_at);
+
+
+    if (createdAt.date === today.date) {
+        return 'Created';
+    } else if (updatedAt.date === today.date) {
+        return 'Worked on';
+    } else if(closedAt.date === today.date) {
+        return 'Closed';
+    } else if (mergedAt.date === today.date) {
+        return 'Merged';
+    }
+}
 
 main()
