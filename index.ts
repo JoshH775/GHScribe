@@ -64,16 +64,36 @@ async function diary(){
         page: 1,
     })
 
-    console.log(prs.data.length)
-    const thing = prs.data[0]
+    const workedOn = []
+    const created = []
+    const closed = []
+    const merged = []
 
     for (const pr of prs.data) {
         const updatedAt = moment(pr.updated_at);
 
         if (updatedAt.isSameOrAfter(today) && updatedAt.isBefore(tomorrow) && pr.user?.login === user.data.login) {
-            console.log(`${deriveVerb(pr)} ${pr.title}`)
+
+            const verb = deriveVerb(pr)
+
+            switch (verb) {
+                case 'Created':
+                    created.push(pr.title)
+                    break;
+                case 'Worked on':
+                    workedOn.push(pr.title)
+                    break;
+                case 'Closed':
+                    closed.push(pr.title)
+                    break;
+                case 'Merged':
+                    merged.push(pr.title)
+                    break;
+            }
         }
     }
+
+    console.log(workedOn)
 }
 
 async function main () {
@@ -86,20 +106,22 @@ async function main () {
 
 }
 
-function deriveVerb(pr: PullRequestSimple): "Created" | "Worked on" | "Closed" | "Merged" | undefined {
+function deriveVerb(pr: any): "Created" | "Worked on" | "Closed" | "Merged" | undefined {
+
     const createdAt = moment(pr.created_at);
     const updatedAt = moment(pr.updated_at);
     const closedAt = moment(pr.closed_at);
     const mergedAt = moment(pr.merged_at);
 
 
-    if (createdAt.date === today.date) {
+
+    if (createdAt.isSame(today, 'day')) {
         return 'Created';
-    } else if (updatedAt.date === today.date) {
+    } else if (updatedAt.isSame(today, 'day')) {
         return 'Worked on';
-    } else if(closedAt.date === today.date) {
+    } else if(closedAt.isSame(today, 'day')) {
         return 'Closed';
-    } else if (mergedAt.date === today.date) {
+    } else if (mergedAt.isSame(today, 'day')){
         return 'Merged';
     }
 }
