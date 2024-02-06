@@ -1,9 +1,33 @@
-import { readFile, utils } from "xlsx";
+import { readFile, utils, writeFile } from "xlsx";
 
 const diary = readFile('./diary.xlsx');
 
-const sheetName = diary.SheetNames[0];
+const sheet = diary.Sheets[diary.SheetNames[0]];
 
-const sheet = diary.Sheets[sheetName];
-utils.sheet_add_aoa(sheet, [['2002-01-01', 'Hello', 'World']], {origin: 'A1'});
+function getData(): DiaryEntry[] {
+    return utils.sheet_to_json(sheet, {defval: ''});
+}
 
+export function addRow(args: DiaryEntry) {
+
+    if (checkPrevious(args.Date)) {
+        console.log('Row already exists for ' + args.Date);
+        return;
+    }
+    const origin = utils.encode_cell({c: 0, r: getData().length+1})
+    utils.sheet_add_aoa(sheet, [[args.Date, args["Work Carried Out"], args["Knowledge Gained"]]], {origin: origin});
+    writeFile(diary, './diary.xlsx');
+    console.log('Row added for ' + args.Date);
+}
+
+export interface DiaryEntry {
+    Date: string;
+    'Work Carried Out': string;
+    'Knowledge Gained': string;
+    Competencies: string;
+}
+
+function checkPrevious(date: string): boolean {
+    const data = getData();
+    return data.some(entry => entry.Date === date);
+}

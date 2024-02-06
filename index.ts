@@ -3,10 +3,9 @@ import { Octokit } from "octokit";
 import moment from "moment";
 import { config } from "dotenv";
 import { AuthenticatedUserAlias } from "./types";
+import { addRow } from "./sheets";
 
-// const today = moment().startOf('day');
-
-const today = moment('2024-01-29').startOf('day');
+const today = moment().startOf('day');
 
 
 config()
@@ -22,37 +21,10 @@ interface PullRequestOptions {
 
 let user: AuthenticatedUserAlias
 
-async function pullRequests(options: PullRequestOptions) { 
-    
-    if (!user) return 
-
-    const prs = []
-    let page = 0
-
-    
-    while (true) {
-        const response = await octokit.rest.search.issuesAndPullRequests({
-            q: options.q ?? `is:pr author:${user.data.login}`,
-            sort: 'updated',
-            order: 'desc',
-            page: page,
-            per_page: options.perPage ?? 70
-
-        })
-
-        if (response.data.items.length === 0 || page === options.maxPages) break
-        prs.push(...response.data.items)
-        page++
-    }     
-
-    for (const pr of prs) {
-        const updatedAt = moment(pr.updated_at)
-        console.log(`PR ${updatedAt.format('LLL')}: ${pr.title}`);        
-    }
-}
 
 
 async function diary(){
+
     const tomorrow = moment(today).add(1, 'days');
 
     const prs = await octokit.rest.pulls.list({
@@ -70,12 +42,10 @@ async function diary(){
     const merged = []
 
     for (const pr of prs.data) {
-
         const updatedAt = moment(pr.updated_at);
 
 
         if (updatedAt.isSameOrAfter(today, 'day') && updatedAt.isBefore(tomorrow, 'day') && pr.user?.login === user.data.login) {
-
             const verbs = deriveVerb(pr);
 
             for (const verb of verbs) {
@@ -97,17 +67,26 @@ async function diary(){
         }
     }
 
-    console.log('Worked On', workedOn)
-    console.log('Created',created)
-    console.log('Closed',closed)
-    console.log('merged',merged)
+    const workedOnString = workedOn.length > 0 ? `Worked on: ${workedOn.join(', ')}` : '';
+    const createdString = created.length > 0 ? `Created: ${created.join(', ')}` : '';
+    const closedString = closed.length > 0 ? `Closed: ${closed.join(', ')}` : '';
+    const mergedString = merged.length > 0 ? `Merged: ${merged.join(', ')}` : '';
+
+    const all = [workedOnString, createdString, closedString, mergedString].filter(Boolean).join('\n');
+
+ 
+    if (all.length > 5) addRow({
+        Date: today.format('YYYY-MM-DD'), "Work Carried Out": all, "Knowledge Gained": '',
+        Competencies: ""
+    });
+
+
 }
 
 async function main () {
 
     user = await octokit.rest.users.getAuthenticated()
     
-    // await pullRequests({q: `is:pr state:open author:${user.data.login} repo:Radweb/InventoryBase`, maxPages: 1, perPage: 3});
 
     await diary()
 
