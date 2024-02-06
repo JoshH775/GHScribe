@@ -4,8 +4,9 @@ import moment from "moment";
 import { config } from "dotenv";
 import { AuthenticatedUserAlias } from "./types";
 
-const today = moment().startOf('day');
+// const today = moment().startOf('day');
 
+const today = moment('2024-01-29').startOf('day');
 
 
 config()
@@ -52,7 +53,6 @@ async function pullRequests(options: PullRequestOptions) {
 
 
 async function diary(){
-    const today = moment().startOf('day');
     const tomorrow = moment(today).add(1, 'days');
 
     const prs = await octokit.rest.pulls.list({
@@ -70,30 +70,37 @@ async function diary(){
     const merged = []
 
     for (const pr of prs.data) {
+
         const updatedAt = moment(pr.updated_at);
 
-        if (updatedAt.isSameOrAfter(today) && updatedAt.isBefore(tomorrow) && pr.user?.login === user.data.login) {
 
-            const verb = deriveVerb(pr)
+        if (updatedAt.isSameOrAfter(today, 'day') && updatedAt.isBefore(tomorrow, 'day') && pr.user?.login === user.data.login) {
 
-            switch (verb) {
-                case 'Created':
-                    created.push(pr.title)
-                    break;
-                case 'Worked on':
-                    workedOn.push(pr.title)
-                    break;
-                case 'Closed':
-                    closed.push(pr.title)
-                    break;
-                case 'Merged':
-                    merged.push(pr.title)
-                    break;
+            const verbs = deriveVerb(pr);
+
+            for (const verb of verbs) {
+                switch (verb) {
+                    case 'Created':
+                        created.push(pr.title);
+                        break;
+                    case 'Worked on':
+                        workedOn.push(pr.title);
+                        break;
+                    case 'Closed':
+                        closed.push(pr.title);
+                        break;
+                    case 'Merged':
+                        merged.push(pr.title);
+                        break;
+                }
             }
         }
     }
 
-    console.log(workedOn)
+    console.log('Worked On', workedOn)
+    console.log('Created',created)
+    console.log('Closed',closed)
+    console.log('merged',merged)
 }
 
 async function main () {
@@ -106,24 +113,29 @@ async function main () {
 
 }
 
-function deriveVerb(pr: any): "Created" | "Worked on" | "Closed" | "Merged" | undefined {
+function deriveVerb(pr: any): Array<"Created" | "Worked on" | "Closed" | "Merged"> {
 
     const createdAt = moment(pr.created_at);
     const updatedAt = moment(pr.updated_at);
     const closedAt = moment(pr.closed_at);
     const mergedAt = moment(pr.merged_at);
 
-
+    const actions: Array<"Created" | "Worked on" | "Closed" | "Merged"> = [];
 
     if (createdAt.isSame(today, 'day')) {
-        return 'Created';
-    } else if (updatedAt.isSame(today, 'day')) {
-        return 'Worked on';
-    } else if(closedAt.isSame(today, 'day')) {
-        return 'Closed';
-    } else if (mergedAt.isSame(today, 'day')){
-        return 'Merged';
+        actions.push('Created');
+    } 
+    if (updatedAt.isSame(today, 'day') && !createdAt.isSame(today, 'day')) {
+        actions.push('Worked on');
+    } 
+    if(closedAt.isSame(today, 'day') && !closedAt.isSame(mergedAt, 'day')) {
+        actions.push('Closed');
+    } 
+    if (mergedAt.isSame(today, 'day')){
+        actions.push('Merged');
     }
+
+    return actions;
 }
 
 main()
