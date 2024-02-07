@@ -112,3 +112,4 @@ octokit.rest.users.getAuthenticated().then(result => {
 }
 
 
+diary();

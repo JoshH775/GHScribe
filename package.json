@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node ./build/index.js",
     "build": "tsc",
-    "sheets": "tsc && node ./build/sheets.js"
+    "sheets": "tsc && node ./build/sheets.js",
+    "server": "tsc && node ./build/server.js"
   },
   "keywords": [],
   "author": "",
