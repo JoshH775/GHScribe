@@ -30,6 +30,8 @@ octokit.rest.users.getAuthenticated().then(result => {
     page: 1,
   });
 
+  const myPrs = []
+
   const workedOn = [];
   const created = [];
   const closed = [];
@@ -43,6 +45,7 @@ octokit.rest.users.getAuthenticated().then(result => {
       updatedAt.isBefore(tomorrow, "day") &&
       pr.user?.login === user.data.login
     ) {
+      myPrs.push(pr);
       const verbs = deriveVerb(pr);
 
       for (const verb of verbs) {
@@ -80,7 +83,7 @@ octokit.rest.users.getAuthenticated().then(result => {
     addRow({
       Date: today.format("YYYY-MM-DD"),
       "Work Carried Out": all,
-      "Knowledge Gained": "",
+      "Knowledge Gained": deriveSkills(myPrs),
       Competencies: "",
     });
 }
@@ -109,6 +112,29 @@ octokit.rest.users.getAuthenticated().then(result => {
   }
 
   return actions;
+}
+
+function deriveSkills(prs: any[]) {
+  const skills = new Set<string>();
+
+  prs.forEach(pr => {
+    const lastLine = pr.body.split("\r").pop();
+
+    const matches = lastLine.match(/\[(.*?)\]/);
+
+    if (matches) {
+      const array = matches[1].split(',').map((item: string) => item.trim());
+      array.forEach((skill: string) => skills.add(skill));
+    }
+  });
+
+  const skillsArray = Array.from(skills);
+  if (skillsArray.length > 1) {
+    const lastSkill = skillsArray.pop();
+    return `Improved my ${skillsArray.join(', ')}, and ${lastSkill} skills`;
+  } else {
+    return `Improved my ${skillsArray.join(', ')} skills`;
+  }
 }
 
 
