@@ -131,9 +131,9 @@ function deriveSkills(prs: any[]) {
   const skillsArray = Array.from(skills);
   if (skillsArray.length > 1) {
     const lastSkill = skillsArray.pop();
-    return `Improved my ${skillsArray.join(', ')}, and ${lastSkill} skills`;
+    return `Worked on my ${skillsArray.join(', ')}, and ${lastSkill} skills`;
   } else {
-    return `Improved my ${skillsArray.join(', ')} skills`;
+    return `Worked on my ${skillsArray.join(', ')} skills`;
   }
 }
 
