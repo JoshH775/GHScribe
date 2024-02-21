@@ -18,7 +18,7 @@ octokit.rest.users.getAuthenticated().then(result => {
 });
 
 
- async function diary() {
+ export async function diary() {
   const tomorrow = moment(today).add(1, "days");
 
   const prs = await octokit.rest.pulls.list({
@@ -138,4 +138,3 @@ function deriveSkills(prs: any[]) {
 }
 
 
-diary();
