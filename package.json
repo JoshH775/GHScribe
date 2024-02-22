@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node ./build/server.js",
+    "build-client" :"cd client && npm run build",
+    "start": "npm run build-client && tsc && node ./build/server.js",
     "build": "tsc",
     "sheets": "tsc && node ./build/sheets.js",
     "server": "tsc && node ./build/server.js"
