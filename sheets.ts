@@ -4,7 +4,7 @@ const diary = readFile('./diary.xlsx');
 
 const sheet = diary.Sheets[diary.SheetNames[0]];
 
-function getData(): DiaryEntry[] {
+export function getData(): DiaryEntry[] {
     return utils.sheet_to_json(sheet, {defval: ''});
 }
 
