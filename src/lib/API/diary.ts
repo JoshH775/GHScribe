@@ -2,7 +2,7 @@ import { Octokit } from "octokit";
 
 import moment from "moment";
 import { config } from "dotenv";
-import { AuthenticatedUserAlias } from "./types";
+import type { AuthenticatedUserAlias } from "./types";
 import { addRow } from "./sheets";
 
 const today = moment().startOf("day");
@@ -80,12 +80,14 @@ octokit.rest.users.getAuthenticated().then(result => {
     .filter(Boolean)
     .join("\n");
 
-    addRow({
+    const status = addRow({
       Date: today.format("YYYY-MM-DD"),
       "Work Carried Out": all,
       "Knowledge Gained": deriveSkills(myPrs),
       Competencies: "",
     });
+
+    return status
 }
 
  function deriveVerb(

@@ -6,8 +6,9 @@
     let rows: DiaryEntry[] = [];
 
     onMount(() => {
+
         const fetchData = async () => {
-            const response = await fetch("http://localhost:5000/api/diary", {
+            const response = await fetch("api/diary", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
