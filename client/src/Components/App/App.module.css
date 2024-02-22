@@ -1,0 +1,9 @@
+.header {
+    width: 100%;
+    display: flex;
+    font-size: 2rem;
+}
+
+.app {
+    padding: 0.4rem;
+}
