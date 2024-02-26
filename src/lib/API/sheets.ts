@@ -35,3 +35,21 @@ function checkPrevious(date: string): boolean {
     const data = getData();
     return data.some(entry => entry.Date === date);
 }
+
+export function replace(){
+
+}
+
+export function toJson(){
+    const json: JSONTemplate = {}
+    getData().forEach((entry: DiaryEntry) => {
+        const { Date, ...entryWithoutDate } = entry;
+        json[Date] = entryWithoutDate;
+    });
+    return JSON.stringify(json);
+}
+
+
+interface JSONTemplate {
+    [key: string]: Omit<DiaryEntry, 'Date'>;
+}
