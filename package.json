@@ -11,7 +11,7 @@
 		"start": "node ./build/index.js"
 	},
 	"devDependencies": {
-		"@smui/data-table": "^7.0.0-beta.16",
+		"@iconify/svelte": "^3.1.6",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/adapter-node": "^4.0.1",
 		"@sveltejs/adapter-static": "^3.0.1",
