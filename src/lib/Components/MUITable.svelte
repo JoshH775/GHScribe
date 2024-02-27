@@ -3,25 +3,9 @@
     import { onMount } from "svelte";
     import moment from "moment";
 
-    let rows: DiaryEntry[] = [];
+    export let rows: DiaryEntry[] = [];
 
-    onMount(() => {
-
-        const fetchData = async () => {
-            const response = await fetch("api/diary", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                }});
-
-            
-            const data = await response.json();
-            console.log(data);
-            rows = data;
-        };
-
-        fetchData();
-    });
+   
 </script>
 
 <table>
