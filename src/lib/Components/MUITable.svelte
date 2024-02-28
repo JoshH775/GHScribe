@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { DiaryEntry } from "$lib/types";
-    import { onMount } from "svelte";
     import moment from "moment";
 
     export let rows: DiaryEntry[] = [];
