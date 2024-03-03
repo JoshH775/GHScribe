@@ -18,15 +18,17 @@ octokit.rest.users.getAuthenticated().then(result => {
 });
 
 
- export async function diary() {
-  const tomorrow = moment(today).add(1, "days");
-
+ export async function diary(date: moment.Moment = today) {
+  
+  const day = date && date.isValid() ? date.startOf('day') : today;
+  
   const prs = await octokit.rest.pulls.list({
     owner: "Radweb", 
     repo: "InventoryBase",
     state: "all",
     sort: "updated",
     direction: "desc",
+    per_page: 75,
     page: 1,
   });
 
@@ -39,14 +41,13 @@ octokit.rest.users.getAuthenticated().then(result => {
 
   for (const pr of prs.data) {
     const updatedAt = moment(pr.updated_at);
-
+  
     if (
-      updatedAt.isSameOrAfter(today, "day") &&
-      updatedAt.isBefore(tomorrow, "day") &&
+      updatedAt.format("YYYY-MM-DD") === day.format("YYYY-MM-DD") &&
       pr.user?.login === user.data.login
     ) {
       myPrs.push(pr);
-      const verbs = deriveVerb(pr);
+      const verbs = deriveVerb(pr, day);
 
       for (const verb of verbs) {
         switch (verb) {
@@ -67,7 +68,7 @@ octokit.rest.users.getAuthenticated().then(result => {
     }
   }
 
-  if (workedOn.length === 0 && created.length === 0 && closed.length === 0 && merged.length === 0) return;
+  if (workedOn.length === 0 && created.length === 0 && closed.length === 0 && merged.length === 0) return 0;
 
   const workedOnString =
     workedOn.length > 0 ? `Worked on: ${workedOn.join(", ")}` : "";
@@ -81,17 +82,18 @@ octokit.rest.users.getAuthenticated().then(result => {
     .join("\n");
 
     const status = addRow({
-      Date: today.format("YYYY-MM-DD"),
+      Date: day.format("YYYY-MM-DD"),
       "Work Carried Out": all,
       "Knowledge Gained": deriveSkills(myPrs),
       Competencies: "",
     });
 
-    return status
+    return (status ? 2 : 1)
 }
 
  function deriveVerb(
-  pr: any
+  pr: any,
+  day = today
 ): Array<"Created" | "Worked on" | "Closed" | "Merged"> {
   const createdAt = moment(pr.created_at);
   const updatedAt = moment(pr.updated_at);
@@ -100,16 +102,16 @@ octokit.rest.users.getAuthenticated().then(result => {
 
   const actions: Array<"Created" | "Worked on" | "Closed" | "Merged"> = [];
 
-  if (createdAt.isSame(today, "day")) {
+  if (createdAt.isSame(day, "day")) {
     actions.push("Created");
   }
-  if (updatedAt.isSame(today, "day") && !createdAt.isSame(today, "day")) {
+  if (updatedAt.isSame(day, "day") && !createdAt.isSame(day, "day")) {
     actions.push("Worked on");
   }
-  if (closedAt.isSame(today, "day") && !closedAt.isSame(mergedAt, "day")) {
+  if (closedAt.isSame(day, "day") && !closedAt.isSame(mergedAt, "day")) {
     actions.push("Closed");
   }
-  if (mergedAt.isSame(today, "day")) {
+  if (mergedAt.isSame(day, "day")) {
     actions.push("Merged");
   }
 
