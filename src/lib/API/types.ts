@@ -1,4 +1,4 @@
-import { OctokitResponse } from "@octokit/types";
+import type { OctokitResponse } from "@octokit/types";
 
 export type AuthenticatedUserAlias = OctokitResponse<
   | {

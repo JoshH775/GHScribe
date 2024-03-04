@@ -1,10 +1,9 @@
 <script lang="ts">
-    import type { DiaryEntry } from "$lib/types";
+    import type { DiaryEntry } from "$lib/databaseController";
     import moment from "moment";
 
     export let rows: DiaryEntry[] = [];
 
-   
 </script>
 
 <table>
@@ -19,10 +18,10 @@
     <tbody>
         {#each rows as row}
             <tr>
-                <td class="date">{moment(row.Date).format('LL')}</td>
-                <td class="wco">{row["Work Carried Out"]}</td>
-                <td class="kg">{row["Knowledge Gained"]}</td>
-                <td class="competencies">{row.Competencies}</td>
+                <td class="date">{moment(row.date).format('LL')}</td>
+                <td class="wco">{row.workcarriedout}</td>
+                <td class="kg">{row.knowledgegained}</td>
+                <td class="competencies">{row.competencies}</td>
             </tr>
         {/each}
 </table>

@@ -1,15 +1,13 @@
 import { Octokit } from "octokit";
-
 import moment from "moment";
-import { config } from "dotenv";
 import type { AuthenticatedUserAlias } from "./types";
-import { addRow } from "./sheets";
+import { addRow } from "$lib/databaseController";
+import { AUTH_TOKEN } from "$env/static/private";
 
 const today = moment().startOf("day");
 
-config();
 
-const octokit = new Octokit({ auth: process.env.AUTH_TOKEN });
+const octokit = new Octokit({ auth: AUTH_TOKEN });
 
 export let user: AuthenticatedUserAlias;
 
@@ -18,7 +16,7 @@ octokit.rest.users.getAuthenticated().then(result => {
 });
 
 
- export async function diary(date: moment.Moment = today) {
+ export async function diary(date: moment.Moment = today, replace: boolean = false) {
   
   const day = date && date.isValid() ? date.startOf('day') : today;
   
@@ -81,14 +79,14 @@ octokit.rest.users.getAuthenticated().then(result => {
     .filter(Boolean)
     .join("\n");
 
-    const status = addRow({
-      Date: day.format("YYYY-MM-DD"),
-      "Work Carried Out": all,
-      "Knowledge Gained": deriveSkills(myPrs),
-      Competencies: "",
-    });
+    const status = await addRow({
+      date: day.format("YYYY-MM-DD"),
+      workcarriedout: all,
+      knowledgegained: deriveSkills(myPrs),
+      competencies: "",
+    }, replace);
 
-    return (status ? 1 : 2)
+    return status
 }
 
  function deriveVerb(
