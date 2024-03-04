@@ -1,6 +1,5 @@
 import { diary } from "$lib/API/diary";
-import { getData } from "$lib/API/sheets";
-
+import { getData } from "$lib/databaseController";
 import moment from "moment";
 import type { RequestEvent } from "./$types";
 
@@ -12,48 +11,48 @@ export async function GET() {
   return new Response(JSON.stringify(getData()), ops);
 }
 
-
 export async function POST({ request }: RequestEvent) {
-  let date = moment().format("YYYY-MM-DD");
-  try {
-    date = await request.json()
-  } catch (e) {
-    console.log("No date provided");
-  }
+  let date = moment().startOf("day");
+  let replace = false;
 
-
-  let parsedDate;
-  try {
-    parsedDate = moment(date, "YYYY-MM-DD");
-    if (!parsedDate.isValid()) {
-      console.error("Invalid date format");
+  if (request) {
+    try {
+      const body = await request.json();
+      date = body.date ? moment(body.date).startOf("day") : date;
+      replace = body.replace !== undefined ? body.replace : replace;
+    } catch (e) {
+      console.log('Request body empty or is not json'); 
     }
-  } catch (e) {
-    parsedDate = moment();
   }
 
-  const status = await diary(parsedDate);
+  const status = await diary(date, replace);
 
-  const statusHttp = {
-    0: 200,
-    1: 201,
-    2: 409,
+  const statusHttp: { [key: number]: number } = {
+    0: 201, // New entry added
+    1: 201, // Existing entry replaced
+    2: 409, // Conflict, entry already exists
+    3: 200, // No content, nothing to add
+    4: 500, // Server error
   };
   
-  const statusMessages = {
-    0: "Operation successful",
-    1: "Diary updated successfully",
-    2: "Content already exists",
+  const statusMessages: { [key: number]: string } = {
+    0: "New entry added to diary",
+    1: `Replaced entry for ${date.format("YYYY-MM-DD")}`,
+    2: "Entry already exists",
+    3: "Nothing to add",
+    4: "Error updating diary",
   };
-  
+
   const ops: ResponseInit = {
     status: statusHttp[status],
   };
+
   return new Response(
     JSON.stringify({
       message: statusMessages[status],
     }),
     ops
   );
+  
   
 }
