@@ -4,11 +4,17 @@ import { SUPABASE_KEY } from '$env/static/private'
 const url = 'https://qodlbtsmlinjycldnfuw.supabase.co'
 export const supabase = createClient(url, SUPABASE_KEY)
 
-export const getData = async () => {
+export const getData = async (): Promise<DiaryEntry[]> => {
     const { data, error } = await supabase
         .from('log')
         .select('*')
-    return data
+
+    if (error) {
+        console.error(error);
+        return [];
+    }
+
+    return data;
 }
 export const checkPrevious = async (date: string) => {
     const data = await getData()
@@ -20,14 +26,19 @@ export const checkPrevious = async (date: string) => {
 // 0 - Success (new entry)
 // 1 - Success (replaced entry)
 // 2 - Entry already exists
-// 3 - Error
+// 3 - Nothing to add
+// 4 - Error
 
 export const addRow = async (row: DiaryEntry, replace = false): Promise<number> => {
     const previousExists = await checkPrevious(row.date);
     console.log(replace)
   
     if (previousExists && !replace) {
-      return 2;
+      return 2; // Entry already exists
+    }
+  
+    if (!previousExists && Object.values(row).every(val => !val)) {
+      return 3; // Nothing to add
     }
   
     const { error } = await supabase
@@ -36,10 +47,10 @@ export const addRow = async (row: DiaryEntry, replace = false): Promise<number> 
   
     if (error) {
       console.error(error);
-      return 3;
+      return 4; // Error
     }
   
-    return previousExists ? 1 : 0;
+    return previousExists ? 1 : 0; 
   }
 
 export const deleteRow = async (date: string) => {
