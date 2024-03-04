@@ -88,7 +88,7 @@ octokit.rest.users.getAuthenticated().then(result => {
       Competencies: "",
     });
 
-    return (status ? 2 : 1)
+    return (status ? 1 : 2)
 }
 
  function deriveVerb(

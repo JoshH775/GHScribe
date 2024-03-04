@@ -14,7 +14,12 @@ export async function GET() {
 
 
 export async function POST({ request }: RequestEvent) {
-  const { date } = await request.json()
+  let date = moment().format("YYYY-MM-DD");
+  try {
+    date = await request.json()
+  } catch (e) {
+    console.log("No date provided");
+  }
 
 
   let parsedDate;
