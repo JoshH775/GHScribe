@@ -31,7 +31,6 @@ export const checkPrevious = async (date: string) => {
 
 export const addRow = async (row: DiaryEntry, replace = false): Promise<number> => {
     const previousExists = await checkPrevious(row.date);
-    console.log(replace)
   
     if (previousExists && !replace) {
       return 2; // Entry already exists

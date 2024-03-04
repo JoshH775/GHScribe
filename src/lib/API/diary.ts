@@ -66,7 +66,7 @@ octokit.rest.users.getAuthenticated().then(result => {
     }
   }
 
-  if (workedOn.length === 0 && created.length === 0 && closed.length === 0 && merged.length === 0) return 0;
+  if (workedOn.length === 0 && created.length === 0 && closed.length === 0 && merged.length === 0) return 3;
 
   const workedOnString =
     workedOn.length > 0 ? `Worked on: ${workedOn.join(", ")}` : "";

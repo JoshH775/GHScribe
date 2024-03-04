@@ -29,9 +29,9 @@ export async function POST({ request }: RequestEvent) {
 
   const statusHttp: { [key: number]: number } = {
     0: 201, // New entry added
-    1: 200, // Existing entry replaced
+    1: 201, // Existing entry replaced
     2: 409, // Conflict, entry already exists
-    3: 204, // No content, nothing to add
+    3: 200, // No content, nothing to add
     4: 500, // Server error
   };
   
@@ -46,11 +46,13 @@ export async function POST({ request }: RequestEvent) {
   const ops: ResponseInit = {
     status: statusHttp[status],
   };
+
   return new Response(
     JSON.stringify({
       message: statusMessages[status],
     }),
     ops
   );
+  
   
 }
