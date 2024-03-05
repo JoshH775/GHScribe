@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
     import type { PageData } from './$types.js';
-    import Alert from "$lib/Components/Modal.svelte";
     import Table from "$lib/Components/Table/Table.svelte";
+    import LockModal from "$lib/Components/Modals/LockModal.svelte";
 
     let fileInput: HTMLInputElement
 
@@ -13,12 +13,16 @@
 
     const upload = () => {
         console.log("Upload");
-        warningModal = false
+        uploadModal = false
         fileInput.click()
-        
     }
 
-    let warningModal = false
+    const lock = () => {
+        lockModal = true
+    }
+
+    let uploadModal = false
+    let lockModal = false
 
     export let data: PageData
     const rows = data.rows
@@ -27,18 +31,21 @@
 
 
 <div class="content">
-    <Alert onClose={()=>{warningModal = false}} header="Warning!" text="boob" show={warningModal} onConfirm={upload}/>
-
+    <LockModal show={lockModal} onClose={()=>{lockModal = false}} onConfirm={()=>{lockModal = false}}/>
     <header>
         <h1>Placement Diary</h1>
         <div>
+            <button class="button" on:click={lock}>
+                <Icon icon="material-symbols:lock-outline" style={'width: 3rem; height: 3rem'} />
+            </button>
             <button on:click={download} class="button">
                 <Icon icon="material-symbols:download" style={'width: 3rem; height: 3rem'}/>
             </button>
             <input type="file" id="file" style="display: none" bind:this={fileInput} accept=".xlsx, .json"/>
-            <button class="button" on:click={()=>{warningModal = true}}>
+            <button class="button" on:click={()=>{uploadModal = true}}>
                 <Icon icon="material-symbols:upload" style={'width: 3rem; height: 3rem'}/>
             </button>
+
         </div>
     </header>
     <Table {rows}/>

@@ -17,7 +17,6 @@
   export let show: boolean;
 
   export let header: string;
-  export let text: string;
 
   export let cancelText: string = "Cancel";
   export let confirmText: string = "Confirm";
@@ -31,7 +30,7 @@
       transition:scale={{ duration: 300, easing: easing.elasticOut }}
     >
       <h1>{header}</h1>
-      <p>{text}</p>
+      <slot></slot> <!-- This is where the content passed to the component will be rendered -->
 
       <div class="buttons">
         <button on:click={cancel}>{cancelText}</button>
@@ -77,12 +76,7 @@
     margin: 0;
   }
 
-  .modal p {
-    margin: 0;
-  }
-
   .buttons {
-
     margin: 1rem;
     display: flex;
     width: 70%;
