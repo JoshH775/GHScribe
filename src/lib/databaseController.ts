@@ -8,6 +8,7 @@ export const getData = async (): Promise<DiaryEntry[]> => {
     const { data, error } = await supabase
         .from('log')
         .select('*')
+        .order('date', { ascending: true })
 
     if (error) {
         console.error(error);
