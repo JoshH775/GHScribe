@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-    import MUITable from "$lib/Components/MUITable.svelte";
     import type { PageData } from './$types.js';
     import Alert from "$lib/Components/Modal.svelte";
+    import Table from "$lib/Components/Table/Table.svelte";
 
     let fileInput: HTMLInputElement
 
@@ -41,7 +41,7 @@
             </button>
         </div>
     </header>
-    <MUITable rows={rows} />
+    <Table {rows}/>
 </div>
 
 <style>
