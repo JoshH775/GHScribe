@@ -63,6 +63,17 @@ export const deleteRow = async (date: string) => {
 
 }
 
+export const updateRow = async (row: DiaryEntry) => {
+    const { error } = await supabase
+        .from('log')
+        .update(row)
+        .eq('date', row.date)
+    if (error) {
+        console.error(error);
+    }
+
+}
+
 export interface DiaryEntry {
     date: string;
     workcarriedout: string;
