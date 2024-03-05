@@ -3,6 +3,10 @@
     import type { PageData } from './$types.js';
     import Table from "$lib/Components/Table/Table.svelte";
     import LockModal from "$lib/Components/Modals/LockModal.svelte";
+    import toast, { Toaster } from 'svelte-french-toast'
+    import Toast from '$lib/Components/Toast.svelte';
+
+    import { lock } from 'src/stores';
 
     let fileInput: HTMLInputElement
 
@@ -17,8 +21,8 @@
         fileInput.click()
     }
 
-    const lock = () => {
-        lockModal = true
+    const toggleLock = () => {
+        if ($lock) lockModal = true
     }
 
     let uploadModal = false
@@ -27,16 +31,24 @@
     export let data: PageData
     const rows = data.rows
 
+    export function toasty(text: string, error = false) {
+        if (error) {
+            toast.error(text)
+        } else {
+            toast.success(text)
+        }
+    }
+
 </script>
 
-
+<Toast />
 <div class="content">
     <LockModal show={lockModal} onClose={()=>{lockModal = false}} onConfirm={()=>{lockModal = false}}/>
     <header>
         <h1>Placement Diary</h1>
         <div>
-            <button class="button" on:click={lock}>
-                <Icon icon="material-symbols:lock-outline" style={'width: 3rem; height: 3rem'} />
+            <button class="button" on:click={toggleLock}>
+                <Icon icon={$lock ? "material-symbols:lock-outline" : "material-symbols:lock-open-outline"} style={'width: 3rem; height: 3rem'} />
             </button>
             <button on:click={download} class="button">
                 <Icon icon="material-symbols:download" style={'width: 3rem; height: 3rem'}/>

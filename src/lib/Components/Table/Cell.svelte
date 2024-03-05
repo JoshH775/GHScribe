@@ -4,13 +4,19 @@
     export let onSave: (content: string, type: string) => void
     import Icon from '@iconify/svelte';
     import { onMount, tick } from 'svelte';
+    import { lock } from 'src/stores'
 
     let edit = false
     let textarea: HTMLTextAreaElement;
 
     let originalContent = content
 
+    let locked: boolean
+
+    lock.subscribe(value => locked = value)
+
     async function toggleEdit() {
+        if ($lock) return
         edit = !edit;
         if (edit) {
             await tick(); // Wait for the state changes to be applied
@@ -19,6 +25,7 @@
     }
 
     function save() {
+        if (locked) return
         onSave(content, type)
         toggleEdit()
         originalContent = content
@@ -32,6 +39,7 @@
     }
 
     function cancel() {
+        if (locked) return
         content = originalContent
         toggleEdit()
     }
@@ -44,12 +52,12 @@
 
 <td class="cell" on:dblclick={type !== 'date' ? toggleEdit : null}>
     {#if edit}
-        <!-- <input bind:value={content} /> -->
         <textarea bind:value={content}  bind:this={textarea} on:keydown={adjustTextareaHeight}/>
     {:else}
         <span class={type === 'date' ? 'date-content' : ''}>{content}</span>
     {/if}
 
+    {#if !locked}
     <div class={!edit ? "buttons" : "edit-buttons"}>
         {#if type !== 'date'}
             <button class="edit" on:click={!edit ? toggleEdit : cancel}>
@@ -62,6 +70,7 @@
             {/if}
         {/if}
     </div>
+    {/if}
 
 </td>
 

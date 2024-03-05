@@ -8,3 +8,4 @@ export const load = async () => {
         rows: data,
     }
 }
+

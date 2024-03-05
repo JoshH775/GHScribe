@@ -30,8 +30,9 @@
       transition:scale={{ duration: 300, easing: easing.elasticOut }}
     >
       <h1>{header}</h1>
-      <slot></slot> <!-- This is where the content passed to the component will be rendered -->
-
+      <div class="content">
+      <slot></slot> 
+      </div>
       <div class="buttons">
         <button on:click={cancel}>{cancelText}</button>
         <button on:click={confirm}>{confirmText}</button>
@@ -60,16 +61,15 @@
     flex-wrap: wrap;
   }
   .modal {
-    width: 25%;
-    height: 25%;
+    width: 350px;
+    height: 300px;
     background-color: white;
     border-radius: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     z-index: 2;
     border: 5px solid black;
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr;
+    justify-items: center;
   }
 
   .modal h1 {
@@ -79,8 +79,9 @@
   .buttons {
     margin: 1rem;
     display: flex;
-    width: 70%;
+    width: 75%;
     justify-content: space-around;
+    justify-self: center;
   }
 
   .buttons button {
@@ -94,5 +95,11 @@
 
   .buttons button:active {
     background-color: grey;
+  }
+
+  .content {
+    height: 100%;
+    width: 100%;
+    padding: 0.4rem;
   }
 </style>
