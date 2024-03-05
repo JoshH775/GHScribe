@@ -5,18 +5,24 @@
 
     export let row: DiaryEntry
 
+    export let toast: (response: Response) => void
+
     async function save(content: string, type: string){
         row[type as keyof DiaryEntry] = content;
-        await fetch('/api/update', {
+
+        const response = await fetch('/api/update', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(row)
         })
+
+        toast(response)
     }
    
 </script>
+
 
 <tr>
     <Cell content={moment(row.date).format('LL')} type='date' onSave={save}/>

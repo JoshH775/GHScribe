@@ -1,11 +1,20 @@
 <script lang="ts">
     import type { DiaryEntry } from "$lib/databaseController";
-    import moment from "moment";
-  import Row from "./Row.svelte";
-
+    import Row from "./Row.svelte";
     export let rows: DiaryEntry[] = [];
+    import toast, { Toaster } from 'svelte-french-toast'
 
+    const toastify = (response: Response) => {
+        if (response.ok) {
+            toast.success('Saved')
+        } else {
+            toast.error('Error')
+        }
+    }
+    
 </script>
+
+<Toaster />
 
 <table>
     <thead>
@@ -18,7 +27,7 @@
     </thead>
     <tbody>
         {#each rows as row}
-            <Row row={row} />
+            <Row row={row} toast={toastify} />
         {/each}
 </table>
 
