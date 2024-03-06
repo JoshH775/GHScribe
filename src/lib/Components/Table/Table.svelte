@@ -14,9 +14,15 @@
     
 </script>
 
+<script lang="ts" context="module">
+
+    export let tableRef: HTMLTableElement;
+
+</script>
+
 <Toaster />
 
-<table>
+<table bind:this={tableRef}>
     <thead>
         <tr>
             <th class="date">Date</th>

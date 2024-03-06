@@ -5,27 +5,19 @@
     import LockModal from "$lib/Components/Modals/LockModal.svelte";
     import toast, { Toaster } from 'svelte-french-toast'
     import Toast from '$lib/Components/Toast.svelte';
-
+    import  { utils, writeFileXLSX } from 'xlsx';
+    import { tableRef } from '$lib/Components/Table/Table.svelte';
     import { lock } from 'src/stores';
 
-    let fileInput: HTMLInputElement
-
     const download = () => {
-        console.log("Download");
-        window.location.href = "api/diary/download";
-    }
-
-    const upload = () => {
-        console.log("Upload");
-        uploadModal = false
-        fileInput.click()
+        const wb = utils.table_to_book(tableRef);
+        writeFileXLSX(wb, 'diary.xlsx');
     }
 
     const toggleLock = () => {
         if ($lock) lockModal = true
     }
 
-    let uploadModal = false
     let lockModal = false
 
     export let data: PageData
@@ -53,11 +45,6 @@
             <button on:click={download} class="button">
                 <Icon icon="material-symbols:download" style={'width: 3rem; height: 3rem'}/>
             </button>
-            <input type="file" id="file" style="display: none" bind:this={fileInput} accept=".xlsx, .json"/>
-            <button class="button" on:click={()=>{uploadModal = true}}>
-                <Icon icon="material-symbols:upload" style={'width: 3rem; height: 3rem'}/>
-            </button>
-
         </div>
     </header>
     <Table {rows}/>
