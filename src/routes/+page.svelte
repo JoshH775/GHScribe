@@ -7,6 +7,7 @@
     import Toast from '$lib/Components/Toast.svelte';
     import  { utils, writeFileXLSX } from 'xlsx';
     import { tableRef } from '$lib/Components/Table/Table.svelte';
+    import AddModal from '$lib/Components/Modals/AddModal.svelte';
     import { lock } from 'src/stores';
 
     const download = () => {
@@ -17,6 +18,30 @@
     const toggleLock = () => {
         if ($lock) lockModal = true
     }
+
+    const confirmRow = (data: {date: string, replace: boolean}) => {
+        addRow(data)
+        addRowModal = false
+    }
+
+    const addRow = async (data: {date: string, replace: boolean}) => {
+        const response = await fetch('/api/diary', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "date": data.date,
+                "replace": data.replace
+            })
+        })
+
+        const { message } = await response.json()
+        toasty(message)
+        
+    }
+
+    let addRowModal = false
 
     let lockModal = false
 
@@ -35,10 +60,14 @@
 
 <Toast />
 <div class="content">
+    <AddModal show={addRowModal} onClose={()=>{addRowModal = false}} onConfirm={confirmRow}/>
     <LockModal show={lockModal} onClose={()=>{lockModal = false}} onConfirm={()=>{lockModal = false}}/>
     <header>
         <h1>Placement Diary</h1>
         <div>
+            <button class="button" on:click={()=>{addRowModal = true}} disabled={$lock}>
+                <Icon icon="mingcute:add-line" style={'width: 3rem; height: 3rem'} />
+            </button>
             <button class="button" on:click={toggleLock}>
                 <Icon icon={$lock ? "material-symbols:lock-outline" : "material-symbols:lock-open-outline"} style={'width: 3rem; height: 3rem'} />
             </button>
