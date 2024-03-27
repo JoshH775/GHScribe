@@ -10,12 +10,14 @@
     import { PUBLIC_DB_PASSWORD } from "$env/static/public";
 
     let error = false
+    let rememberMe = false
 
     const confirm = () => {
         if (input.value === PUBLIC_DB_PASSWORD) {
             error = false
             onConfirm()
             lock.set(false)
+            localStorage.setItem('authorised', 'true')
             toasty("Diary Unlocked")
         }
         else {
@@ -32,6 +34,10 @@
             {#if error}
                 <p>Incorrect password</p>
             {/if}
+            <label>
+                <input type="checkbox" bind:checked={rememberMe} />
+                Remember me?
+            </label>
             <button type="submit" style="display: none;"></button>
         </div>
     </form>
@@ -59,4 +65,5 @@
         flex-direction: column;
         align-items: center;
     }
+
 </style>

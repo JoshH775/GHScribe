@@ -8,7 +8,9 @@
   import { utils, writeFileXLSX } from "xlsx";
   import { tableRef } from "$lib/Components/Table/Table.svelte";
   import AddModal from "$lib/Components/Modals/AddModal.svelte";
+  import { onMount } from "svelte";
   import { lock } from "src/stores";
+
 
   const download = () => {
     const wb = utils.table_to_book(tableRef);
@@ -54,6 +56,12 @@
       toast.success(text);
     }
   }
+
+
+  onMount(() => {
+    const authorised = !(localStorage.getItem('authorised'))
+    lock.set(authorised)
+  });
 </script>
 
 <Toast />
