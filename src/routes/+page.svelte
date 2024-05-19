@@ -5,6 +5,7 @@
   import LockModal from "$lib/Components/Modals/LockModal.svelte";
   import toast, { Toaster } from "svelte-french-toast";
   import Toast from "$lib/Components/Toast.svelte";
+  import StandupModal from "$lib/Components/Modals/StandupModal.svelte";
   import { utils, writeFileXLSX } from "xlsx";
   import { tableRef } from "$lib/Components/Table/Table.svelte";
   import AddModal from "$lib/Components/Modals/AddModal.svelte";
@@ -20,6 +21,11 @@
   const toggleLock = () => {
     if ($lock) lockModal = true;
   };
+
+  const toggleStandup = () => {
+    standupModal = true;
+  };
+  
 
   const confirmRow = (data: { date: string; replace: boolean }) => {
     addRow(data);
@@ -46,6 +52,8 @@
 
   let lockModal = false;
 
+  let standupModal = false
+
   export let data: PageData;
   const rows = data.rows;
 
@@ -56,6 +64,7 @@
       toast.success(text);
     }
   }
+  
 
 
   onMount(() => {
@@ -82,6 +91,16 @@
       lockModal = false;
     }}
   />
+  <StandupModal
+    data={rows}
+    show={standupModal}
+    onClose={() => {
+      standupModal = false;
+    }}
+    onConfirm={() => {
+      standupModal = false;
+    }}
+  />
   <header>
     <h1>Placement Diary</h1>
     <div>
@@ -103,6 +122,12 @@
         />
       </button>
       <button on:click={download} class="button">
+        <Icon
+          icon="material-symbols:download"
+          style={"width: 3rem; height: 3rem"}
+        />
+      </button>
+      <button on:click={toggleStandup} class="button">
         <Icon
           icon="material-symbols:download"
           style={"width: 3rem; height: 3rem"}

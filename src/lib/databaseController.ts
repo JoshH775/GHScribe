@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { SUPABASE_KEY } from '$env/static/private'
+import moment from "moment";
 
 const url = 'https://qodlbtsmlinjycldnfuw.supabase.co'
 export const supabase = createClient(url, SUPABASE_KEY)
@@ -73,6 +74,22 @@ export const updateRow = async (row: DiaryEntry) => {
         console.error(error);
     }
 
+}
+
+export const standupPrep = async () => {
+    const oneWeekAgo = moment().subtract(7, 'days').format('YYYY-MM-DD');
+
+    const { data, error } = await supabase
+        .from('log')
+        .select('*')
+        .gte('date', oneWeekAgo);
+
+    if (error) {
+        console.error(error);
+        return null;
+    }
+
+    return data;
 }
 
 export interface DiaryEntry {

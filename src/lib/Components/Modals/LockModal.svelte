@@ -2,6 +2,7 @@
     export let show: boolean
     export let onClose: () => void
     export let onConfirm: () => void
+    import moment from "moment";
     import Modal from "./Modal.svelte";
     import { toasty } from "$lib/Components/Toast.svelte";
     import { lock } from "src/stores";
