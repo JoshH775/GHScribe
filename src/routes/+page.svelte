@@ -18,6 +18,18 @@
     writeFileXLSX(wb, "diary.xlsx");
   };
 
+  const downloadJson = () => {
+    const json = JSON.stringify(rows, null, 2);
+    const blob = new Blob([json], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'diary.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   const toggleLock = () => {
     if ($lock) lockModal = true;
   };
@@ -127,9 +139,15 @@
           style={"width: 3rem; height: 3rem"}
         />
       </button>
+      <button on:click={downloadJson}>
+        <Icon
+            icon="lucide:file-json"
+            style={"width: 3rem; height: 3rem"}
+        />
+      </button>
       <button on:click={toggleStandup} class="button">
         <Icon
-          icon="material-symbols:download"
+          icon="material-symbols:info-outline"
           style={"width: 3rem; height: 3rem"}
         />
       </button>
