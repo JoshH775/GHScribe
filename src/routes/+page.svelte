@@ -11,24 +11,41 @@
   import AddModal from "$lib/Components/Modals/AddModal.svelte";
   import { onMount } from "svelte";
   import { lock } from "src/stores";
+  import { readJsonFile } from "src/lib/utils";
 
+  let fileInputRef: HTMLInputElement;
+
+  let uploadedFiles: FileList
 
   const download = () => {
     const wb = utils.table_to_book(tableRef);
     writeFileXLSX(wb, "diary.xlsx");
   };
+  
+
+
+  const uploadJson = async () => {
+    const reader = new FileReader()
+    const json = uploadedFiles[0]
+    console.log(await readJsonFile(json))
+    rows = await readJsonFile(json)
+
+    console.log(rows)
+
+  }
+
 
   const downloadJson = () => {
     const json = JSON.stringify(rows, null, 2);
-    const blob = new Blob([json], {type: 'application/json'});
+    const blob = new Blob([json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = url;
-    link.download = 'diary.json';
+    link.download = "diary.json";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }
+  };
 
   const toggleLock = () => {
     if ($lock) lockModal = true;
@@ -37,7 +54,6 @@
   const toggleStandup = () => {
     standupModal = true;
   };
-  
 
   const confirmRow = (data: { date: string; replace: boolean }) => {
     addRow(data);
@@ -64,10 +80,10 @@
 
   let lockModal = false;
 
-  let standupModal = false
+  let standupModal = false;
 
   export let data: PageData;
-  const rows = data.rows;
+  $: rows = data.rows
 
   export function toasty(text: string, error = false) {
     if (error) {
@@ -76,12 +92,10 @@
       toast.success(text);
     }
   }
-  
-
 
   onMount(() => {
-    const authorised = !(localStorage.getItem('authorised'))
-    lock.set(authorised)
+    const authorised = !localStorage.getItem("authorised");
+    lock.set(authorised);
   });
 </script>
 
@@ -140,14 +154,20 @@
         />
       </button>
       <button on:click={downloadJson}>
-        <Icon
-            icon="lucide:file-json"
-            style={"width: 3rem; height: 3rem"}
-        />
+        <Icon icon="lucide:file-json" style={"width: 3rem; height: 3rem"} />
       </button>
       <button on:click={toggleStandup} class="button">
         <Icon
           icon="material-symbols:info-outline"
+          style={"width: 3rem; height: 3rem"}
+        />
+      </button>
+
+      <input type="file" bind:this={fileInputRef} bind:files={uploadedFiles} accept=".json" on:change={uploadJson} hidden />
+
+      <button on:click={()=>{fileInputRef.click()}}>
+        <Icon
+          icon="material-symbols:upload"
           style={"width: 3rem; height: 3rem"}
         />
       </button>
