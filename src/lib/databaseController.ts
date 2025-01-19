@@ -1,22 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 import { SUPABASE_KEY } from '$env/static/private'
 import moment from "moment";
+import log from '../log.json'
 
 const url = 'https://qodlbtsmlinjycldnfuw.supabase.co'
 export const supabase = createClient(url, SUPABASE_KEY)
 
 export const getData = async (): Promise<DiaryEntry[]> => {
-    const { data, error } = await supabase
-        .from('log')
-        .select('*')
-        .order('date', { ascending: true })
-
-    if (error) {
-        console.error(error);
-        return [];
-    }
-
-    return data;
+    return log
 }
 export const checkPrevious = async (date: string) => {
     const data = await getData()

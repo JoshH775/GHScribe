@@ -2,38 +2,21 @@
   import Icon from "@iconify/svelte";
   import type { PageData } from "./$types.js";
   import Table from "$lib/Components/Table/Table.svelte";
-  import LockModal from "$lib/Components/Modals/LockModal.svelte";
   import toast, { Toaster } from "svelte-french-toast";
   import Toast from "$lib/Components/Toast.svelte";
-  import StandupModal from "$lib/Components/Modals/StandupModal.svelte";
   import { utils, writeFileXLSX } from "xlsx";
   import { tableRef } from "$lib/Components/Table/Table.svelte";
   import AddModal from "$lib/Components/Modals/AddModal.svelte";
   import { onMount } from "svelte";
   import { lock } from "src/stores";
-  import { readJsonFile } from "src/lib/utils";
 
-  let fileInputRef: HTMLInputElement;
 
-  let uploadedFiles: FileList
 
   const download = () => {
     const wb = utils.table_to_book(tableRef);
     writeFileXLSX(wb, "diary.xlsx");
   };
   
-
-
-  const uploadJson = async () => {
-    const reader = new FileReader()
-    const json = uploadedFiles[0]
-    console.log(await readJsonFile(json))
-    rows = await readJsonFile(json)
-
-    console.log(rows)
-
-  }
-
 
   const downloadJson = () => {
     const json = JSON.stringify(rows, null, 2);
@@ -47,9 +30,6 @@
     document.body.removeChild(link);
   };
 
-  const toggleLock = () => {
-    if ($lock) lockModal = true;
-  };
 
   const toggleStandup = () => {
     standupModal = true;
@@ -78,7 +58,6 @@
 
   let addRowModal = false;
 
-  let lockModal = false;
 
   let standupModal = false;
 
@@ -108,27 +87,9 @@
     }}
     onConfirm={confirmRow}
   />
-  <LockModal
-    show={lockModal}
-    onClose={() => {
-      lockModal = false;
-    }}
-    onConfirm={() => {
-      lockModal = false;
-    }}
-  />
-  <StandupModal
-    data={rows}
-    show={standupModal}
-    onClose={() => {
-      standupModal = false;
-    }}
-    onConfirm={() => {
-      standupModal = false;
-    }}
-  />
+
   <header>
-    <h1>Placement Diary</h1>
+    <h1>Placement Diary - Joshua Hickey</h1>
     <div>
       <button
         class="button"
@@ -139,35 +100,16 @@
       >
         <Icon icon="mingcute:add-line" style={"width: 3rem; height: 3rem"} />
       </button>
-      <button class="button" on:click={toggleLock}>
-        <Icon
-          icon={$lock
-            ? "material-symbols:lock-outline"
-            : "material-symbols:lock-open-outline"}
-          style={"width: 3rem; height: 3rem"}
-        />
-      </button>
+
       <button on:click={download} class="button">
         <Icon
           icon="material-symbols:download"
           style={"width: 3rem; height: 3rem"}
         />
       </button>
-      <button on:click={downloadJson}>
-        <Icon icon="lucide:file-json" style={"width: 3rem; height: 3rem"} />
-      </button>
-      <button on:click={toggleStandup} class="button">
+      <button on:click={downloadJson} class="button">
         <Icon
-          icon="material-symbols:info-outline"
-          style={"width: 3rem; height: 3rem"}
-        />
-      </button>
-
-      <input type="file" bind:this={fileInputRef} bind:files={uploadedFiles} accept=".json" on:change={uploadJson} hidden />
-
-      <button on:click={()=>{fileInputRef.click()}}>
-        <Icon
-          icon="material-symbols:upload"
+          icon="codicon:json"
           style={"width: 3rem; height: 3rem"}
         />
       </button>

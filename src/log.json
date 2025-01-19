@@ -1,0 +1,374 @@
+[
+    {
+      "date": "2023-07-04",
+      "workcarriedout": "Setup my laptop and learned how to initialise the web server and vagrant.\nAlso got registered in the organisation with GitHub and Slack.",
+      "knowledgegained": "Setting up server environment, GitHub & Slack registration",
+      "competencies": "A1, B1, E1"
+    },
+    {
+      "date": "2023-07-05",
+      "workcarriedout": "Continued setup from yesterday. Added login and password for ib.admin. ",
+      "knowledgegained": "Further system configuration for ib.admin, potential user credentials set up",
+      "competencies": "A1, B1"
+    },
+    {
+      "date": "2023-07-07",
+      "workcarriedout": "Encountered Wifi issues at home, delayed start to work.",
+      "knowledgegained": "Identified Wi-Fi issues, understanding impact on work, potential troubleshooting",
+      "competencies": "E1"
+    },
+    {
+      "date": "2023-07-10",
+      "workcarriedout": "Productive day with significant progress.",
+      "knowledgegained": "Increased productivity, efficient task completion",
+      "competencies": "D2"
+    },
+    {
+      "date": "2023-07-11",
+      "workcarriedout": "Finished the issue from the 10th, set up with bright hr, and booked the first day off.",
+      "knowledgegained": "Issue resolution, HR process understanding, planned time off",
+      "competencies": "D2, E1"
+    },
+    {
+      "date": "2023-07-12",
+      "workcarriedout": "Created a cheat sheet to troubleshoot issues or  recover forgotten information.\nStruggled with focus. ",
+      "knowledgegained": "Proactive troubleshooting aid, coping with forgetfulness, focus challenges",
+      "competencies": "B1, D2"
+    },
+    {
+      "date": "2023-07-13",
+      "workcarriedout": "Completed the tag popup issue, struggled with PHP.\nEnjoyed frontend JS/CSS, aiming for PHP improvement.",
+      "knowledgegained": "Issue resolution, preference for frontend tasks, identified PHP skill gap",
+      "competencies": "B1, D2"
+    },
+    {
+      "date": "2023-07-21",
+      "workcarriedout": "Discovered the possibility of working from home on Fridays.",
+      "knowledgegained": "Adjusting to commute disruptions, Remote work realization, improved office communication",
+      "competencies": "E1, D1"
+    },
+    {
+      "date": "2023-07-25",
+      "workcarriedout": "More productive day after missing yesterday. Tried conventional commit messages in the latest PR.",
+      "knowledgegained": "Improved productivity, learning new coding practices",
+      "competencies": "B1, D2"
+    },
+    {
+      "date": "2023-07-26",
+      "workcarriedout": "Enjoyable day, I learned about photography and PHP from colleagues.\nFixed mailing issue.",
+      "knowledgegained": "Shared interests, PHP learning, problem-solving with mailing issue",
+      "competencies": "B1, D1, D2"
+    },
+    {
+      "date": "2023-08-09",
+      "workcarriedout": "Spent the day on the Anonymous issue, feeling satisfied but unsure about the next task.\nIssues in triage seem challenging. ",
+      "knowledgegained": "Resolved issues, challenging problem recognition, feeling of uncertainty",
+      "competencies": "B1, D2"
+    },
+    {
+      "date": "2023-08-10",
+      "workcarriedout": "Tackled the reapit issue and attended a house viewing, which was canceled without notification.",
+      "knowledgegained": "Issue resolution, adaptability to schedule changes, facing unexpected situations",
+      "competencies": "D2, E1"
+    },
+    {
+      "date": "2023-08-21",
+      "workcarriedout": "First day back after being on holiday, getting back into the routine",
+      "knowledgegained": "Return to work after time off, readjustment to work environment",
+      "competencies": "D2, E1"
+    },
+    {
+      "date": "2023-10-11",
+      "workcarriedout": "Tackled a large amount of unit test failures.",
+      "knowledgegained": "Improved unit testing skills, troubleshooting and resolving test failures",
+      "competencies": "B1, D2"
+    },
+    {
+      "date": "2023-11-08",
+      "workcarriedout": "Optimized inspection fetching in one of my PRs. Learned a more performant way to fetch bigger datasets.",
+      "knowledgegained": "PR optimization, Improved data fetching performance, knowledge of handling larger datasets",
+      "competencies": "A2, B1, D2"
+    },
+    {
+      "date": "2023-11-29",
+      "workcarriedout": "Had to rollback some accidental changes on a PR.",
+      "knowledgegained": "Learned a bit more on how git reset works, as well as revert commits (still more to learn on this)",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-01-05",
+      "workcarriedout": "Fixed a problem on one of my PRs with the state not updating when supposed to.",
+      "knowledgegained": "Learned about a new state management tool called Pusher that we use to help with state management when integrating with other sites",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-01-12",
+      "workcarriedout": "Fixed a monster of a merge conflict, that couldn’t be handled on GitHub.",
+      "knowledgegained": "Became more familiar with Git CLI, and how to fix merge conflicts manually",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-01-15",
+      "workcarriedout": "We converted the whole codebase from JavaScript to TypeScript.\nHad to recreate some PRs.",
+      "knowledgegained": "Learned how migrating sweeping changes in codebases works (kinda)",
+      "competencies": "A2, B1, C2"
+    },
+    {
+      "date": "2024-01-22",
+      "workcarriedout": "Worked on Feat: Open Weather Integration.",
+      "knowledgegained": "Learned that any HTTP code above 400 is for errors",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-02-01",
+      "workcarriedout": "Created: Feat: FF to control late subscription alert, Feat: Test PR\nMerged: Feat: FF to control late subscription alert",
+      "knowledgegained": "Learned more about how managing features works in SaaS products. Worked on my PHP/Laravel skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-02-07",
+      "workcarriedout": "Created: Fix: Action filters default enabled, Fix: All actions ticked by default\nClosed: Fix: All actions ticked by default",
+      "knowledgegained": "Worked on my CSS, React and Redux skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-02-12",
+      "workcarriedout": "Created: Fix: Spacing discrepancy on share report modal",
+      "knowledgegained": "Worked on my CSS and React skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-02-16",
+      "workcarriedout": "Worked on: Feat: Open Weather Integration",
+      "knowledgegained": "Continued learning about api integrations. Worked on my PHP/Laravel skills.",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-02-19",
+      "workcarriedout": "Worked on: Fix: Action filters default enabled\nMerged: Fix: Action filters default enabled",
+      "knowledgegained": "Worked on my Redux, React and CSS skills.",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-02-20",
+      "workcarriedout": "Worked on: Feat: Visual password feedback on password forget screen, Feat: Custom field activities and create activities on update/create\nMerged: Feat: Visual password feedback on password forget screen",
+      "knowledgegained": "Worked on my React and CSS skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-02-21",
+      "workcarriedout": "Worked on: Feat: Custom field activities and create activities on update/create\nCreated: Fix: Report editor media dropzone width, Fix: URPN fixes and improvements, Fix: Additional email sending on inspection close",
+      "knowledgegained": "Improved my CSS, PHP/Laravel, Redux, PHP, PHPUnit, Typescript, PHPSpec, and Laravel skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-02-22",
+      "workcarriedout": "Worked on: Fix: URPN fixes and improvements, Fix: Additional email sending on inspection close, Feat: Custom field activities and create activities on update/create, Fix: Report editor media dropzone width\nMerged: Fix: URPN fixes and improvements, Feat: Custom field activities and create activities on update/create, Fix: Report editor media dropzone width",
+      "knowledgegained": "Worked on my PHP/Laravel, Redux, PHPUnit, Typescript, PHPSpec and CSS skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-02-26",
+      "workcarriedout": "Worked on: Feat: EPC rating tweaks, Fix: Additional email sending on inspection close\nCreated: Fix: Invalid CSV loader stuck\nMerged: Fix: Additional email sending on inspection close",
+      "knowledgegained": "Worked on my Laravel, TS, PHP, and PHPUnit skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-02-28",
+      "workcarriedout": "Worked on: Fix: Invalid CSV loader stuck, Fix: Additional email sending on inspection close",
+      "knowledgegained": "Worked on my TS, PHP, and PHPUnit skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-02-29",
+      "workcarriedout": "Worked on: Feat: Open Weather Integration\nMerged: Feat: Open Weather Integration",
+      "knowledgegained": "Worked on my  skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-03-04",
+      "workcarriedout": "Created: Feat: Dictionary Behaviour Settings",
+      "knowledgegained": "Worked on my React, Redux, TS, and PHP skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-03-05",
+      "workcarriedout": "Worked on: Feat: EPC rating tweaks\nCreated: Feat: Move report editor settings",
+      "knowledgegained": "Worked on my React, CSS, Laravel, and TS skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-03-07",
+      "workcarriedout": "Worked on: Feat: Move report editor settings, Fix: Invalid CSV loader stuck\nMerged: Fix: Invalid CSV loader stuck",
+      "knowledgegained": "Worked on my React, CSS, and TS skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-03-12",
+      "workcarriedout": "Created: Fix: Add Approved Supplier Option on Message Dropdown",
+      "knowledgegained": "Worked on my deciphering support screenshots, and ts skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-03-14",
+      "workcarriedout": "Created: Feat: Add Inspection Assigned To Clerk custom email",
+      "knowledgegained": "Worked on my laravel skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-03-18",
+      "workcarriedout": "Worked on: Feat: Add Inspection Assigned To Clerk custom email",
+      "knowledgegained": "Worked on my Laravel skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-03-20",
+      "workcarriedout": "Created: Feat: 'Add Unit' button on units page",
+      "knowledgegained": "Worked on my Redux, BackboneJS, TS, and React skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-03-21",
+      "workcarriedout": "Worked on: Fix: Add Approved Supplier Option on Message Dropdown\nCreated: Feat: Room status overview\nMerged: Fix: Add Approved Supplier Option on Message Dropdown",
+      "knowledgegained": "Worked on my deciphering support screenshots, ts, Blade, PHP, and React skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-03-25",
+      "workcarriedout": "Worked on: Feat: 'Add Unit' button on units page",
+      "knowledgegained": "Worked on my Redux, backbone, TS, and React skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-03-27",
+      "workcarriedout": "Worked on: Feat: Room status overview",
+      "knowledgegained": "Worked on my Blade, PHP, and React skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-03-28",
+      "workcarriedout": "Worked on: Feat: Room status overview",
+      "knowledgegained": "Worked on my Blade, PHP, and React skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-04-03",
+      "workcarriedout": "Created: Feat: Prevent duplicate actions",
+      "knowledgegained": "Worked on my React, and MySQL skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-04-09",
+      "workcarriedout": "Worked on: Feat: Room status overview",
+      "knowledgegained": "Worked on my Blade, PHP, and React skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-04-10",
+      "workcarriedout": "Worked on: Feat: Room status overview",
+      "knowledgegained": "Worked on my Blade, PHP, React, and PHPSpec skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-04-12",
+      "workcarriedout": "Created: Feat: Parse email domain for website",
+      "knowledgegained": "Worked on my PHP, and Laravel skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-04-15",
+      "workcarriedout": "Worked on: Feat: Parse email domain for website\nCreated: Feat: Hide Residential Property Fields",
+      "knowledgegained": "Worked on my TS, PHP, and Laravel skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-04-18",
+      "workcarriedout": "Merged: Feat: Hide Residential Property Fields",
+      "knowledgegained": "Worked on my Redux, backbone, TS, React, PHP, and Laravel skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-04-19",
+      "workcarriedout": "Worked on: Feat: Parse email domain for website",
+      "knowledgegained": "Worked on my PHP, PHPSpec and Laravel skills. Beginning to understand writing phpspec tests a little more",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-04-23",
+      "workcarriedout": "Worked on: Feat: 'Add Unit' button on units page, Feat: Parse email domain for website",
+      "knowledgegained": "Worked on my Redux, backbone, TS, React, PHP, and Laravel skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-04-24",
+      "workcarriedout": "Worked on: Fix: Invoice Field State Issues, Feat: Room status overview, Feat: Prevent duplicate actions\nClosed: Feat: Prevent duplicate actions\nMerged: Feat: Room status overview",
+      "knowledgegained": "Worked on my TS, Blade, PHP, React, PHPSpec, and MySQL skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-04-30",
+      "workcarriedout": "Created: Fix: Reactivation pricing unit to p/a\n\nWorked on: Fix: Invoice Field State Issues\nMerged: Fix: Invoice Field State Issues",
+      "knowledgegained": "Worked on my TS skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-05-01",
+      "workcarriedout": "Worked on: Fix: Reactivation pricing unit to p/a\nMerged: Fix: Reactivation pricing unit to p/a",
+      "knowledgegained": "Worked on my TS skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-05-02",
+      "workcarriedout": "Worked on: Feat: Hide Residential fields on sidebars",
+      "knowledgegained": "Worked on my TS skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-05-07",
+      "workcarriedout": "Created: Feat: Agenda Map Improvements",
+      "knowledgegained": "Worked on my  skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-05-15",
+      "workcarriedout": "Worked on: Feat: Agenda Map Improvements (Note: Finally worked out the best way to do date ranges)",
+      "knowledgegained": "Worked on my React, TS, and PHP/Larvel skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-05-16",
+      "workcarriedout": "Worked on: Feat: EPC rating tweaks, Feat: Last sucessful inspection/property integration sync, Feat: Agenda Map Improvements\nCreated: Feat: Auto turn on FF when Template added to Account ",
+      "knowledgegained": "Worked on my Laravel, TS, React, and PHP/Larvel skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-05-17",
+      "workcarriedout": "Worked on: Feat: Last sucessful inspection/property integration sync",
+      "knowledgegained": "Worked on my  skills PHP/Laravel and db skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-05-29",
+      "workcarriedout": "Worked on: Feat: Auto turn on FF when Template added to Account \nCreated: Feat: Item level fields on presets\n\nToday was good because I finally got unstuck after nearly two weeks of Redux saga hell. Created the draft pr for item level fields with the bulk of the work done",
+      "knowledgegained": "Worked on my TS, and Redux stores/sagas skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-06-04",
+      "workcarriedout": "Worked on: Feat: Parse email domain for website\nMerged: Feat: Parse email domain for website",
+      "knowledgegained": "Worked on my PHP, and Laravel skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-06-10",
+      "workcarriedout": "Worked on: Feat: EPC rating tweaks, Feat: Item level fields on presets\nCreated: Fix: Disable confirmation not disabling\nMerged: Feat: EPC rating tweaks",
+      "knowledgegained": "Worked on my Laravel, TS, Redux stores/sagas, CSS, and PHP/Laravel skills",
+      "competencies": "B1, C2"
+    },
+    {
+      "date": "2024-06-14",
+      "workcarriedout": "Worked on: Feat: Item level fields on presets",
+      "knowledgegained": "Worked on my TS, Redux stores/sagas, CSS, and PHP/Laravel skills",
+      "competencies": "B1, C2"
+    }
+   ]
