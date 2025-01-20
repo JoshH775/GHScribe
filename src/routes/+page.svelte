@@ -115,6 +115,7 @@
       </button>
     </div>
   </header>
+  <p>DISCLAIMER: This project is no longer an acive CRUD service due to the end of my placement, in an effort to save on cloud resources. The data is still available to download in .xlsx or .json format.</p>
   <Table {rows} />
 </div>
 
