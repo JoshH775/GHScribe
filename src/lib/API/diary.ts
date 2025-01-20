@@ -7,86 +7,87 @@ import { AUTH_TOKEN } from "$env/static/private";
 const today = moment().startOf("day");
 
 
-const octokit = new Octokit({ auth: AUTH_TOKEN });
+// const octokit = new Octokit({ auth: AUTH_TOKEN });
 
-export let user: AuthenticatedUserAlias;
+// export let user: AuthenticatedUserAlias;
 
-octokit.rest.users.getAuthenticated().then(result => {
-  user = result;
-});
+// octokit.rest.users.getAuthenticated().then(result => {
+//   user = result;
+// });
 
 
  export async function diary(date: moment.Moment = today, replace: boolean = false) {
   
-  const day = date && date.isValid() ? date.startOf('day') : today;
+  // const day = date && date.isValid() ? date.startOf('day') : today;
   
-  const prs = await octokit.rest.pulls.list({
-    owner: "Radweb", 
-    repo: "InventoryBase",
-    state: "all",
-    sort: "updated",
-    direction: "desc",
-    per_page: 75,
-    page: 1,
-  });
+  // const prs = await octokit.rest.pulls.list({
+  //   owner: "Radweb", 
+  //   repo: "InventoryBase",
+  //   state: "all",
+  //   sort: "updated",
+  //   direction: "desc",
+  //   per_page: 75,
+  //   page: 1,
+  // });
 
-  const myPrs = []
+  // const myPrs = []
 
-  const workedOn = [];
-  const created = [];
-  const closed = [];
-  const merged = [];
+  // const workedOn = [];
+  // const created = [];
+  // const closed = [];
+  // const merged = [];
 
-  for (const pr of prs.data) {
-    const updatedAt = moment(pr.updated_at);
+  // for (const pr of prs.data) {
+  //   const updatedAt = moment(pr.updated_at);
   
-    if (
-      updatedAt.format("YYYY-MM-DD") === day.format("YYYY-MM-DD") &&
-      pr.user?.login === user.data.login
-    ) {
-      myPrs.push(pr);
-      const verbs = deriveVerb(pr, day);
+  //   if (
+  //     updatedAt.format("YYYY-MM-DD") === day.format("YYYY-MM-DD") &&
+  //     pr.user?.login === user.data.login
+  //   ) {
+  //     myPrs.push(pr);
+  //     const verbs = deriveVerb(pr, day);
 
-      for (const verb of verbs) {
-        switch (verb) {
-          case "Created":
-            created.push(pr.title);
-            break;
-          case "Worked on":
-            workedOn.push(pr.title);
-            break;
-          case "Closed":
-            closed.push(pr.title);
-            break;
-          case "Merged":
-            merged.push(pr.title);
-            break;
-        }
-      }
-    }
-  }
+  //     for (const verb of verbs) {
+  //       switch (verb) {
+  //         case "Created":
+  //           created.push(pr.title);
+  //           break;
+  //         case "Worked on":
+  //           workedOn.push(pr.title);
+  //           break;
+  //         case "Closed":
+  //           closed.push(pr.title);
+  //           break;
+  //         case "Merged":
+  //           merged.push(pr.title);
+  //           break;
+  //       }
+  //     }
+  //   }
+  // }
 
-  if (workedOn.length === 0 && created.length === 0 && closed.length === 0 && merged.length === 0) return 3;
+  // if (workedOn.length === 0 && created.length === 0 && closed.length === 0 && merged.length === 0) return 3;
 
-  const workedOnString =
-    workedOn.length > 0 ? `Worked on: ${workedOn.join(", ")}` : "";
-  const createdString =
-    created.length > 0 ? `Created: ${created.join(", ")}` : "";
-  const closedString = closed.length > 0 ? `Closed: ${closed.join(", ")}` : "";
-  const mergedString = merged.length > 0 ? `Merged: ${merged.join(", ")}` : "";
+  // const workedOnString =
+  //   workedOn.length > 0 ? `Worked on: ${workedOn.join(", ")}` : "";
+  // const createdString =
+  //   created.length > 0 ? `Created: ${created.join(", ")}` : "";
+  // const closedString = closed.length > 0 ? `Closed: ${closed.join(", ")}` : "";
+  // const mergedString = merged.length > 0 ? `Merged: ${merged.join(", ")}` : "";
 
-  const all = [workedOnString, createdString, closedString, mergedString]
-    .filter(Boolean)
-    .join("\n");
+  // const all = [workedOnString, createdString, closedString, mergedString]
+  //   .filter(Boolean)
+  //   .join("\n");
 
-    const status = await addRow({
-      date: day.format("YYYY-MM-DD"),
-      workcarriedout: all,
-      knowledgegained: deriveSkills(myPrs),
-      competencies: "",
-    }, replace);
+  //   const status = await addRow({
+  //     date: day.format("YYYY-MM-DD"),
+  //     workcarriedout: all,
+  //     knowledgegained: deriveSkills(myPrs),
+  //     competencies: "",
+  //   }, replace);
 
-    return status
+  //   return status
+  return 200
 }
 
  function deriveVerb(
